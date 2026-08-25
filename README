@@ -6,8 +6,8 @@ Aplicación full-stack diseñada específicamente para optimizar la logística, 
 
 ### 🔍 Buscador en Tiempo Real
 
-- **Funcionamiento:** Escribe en la barra de búsqueda superior para filtrar los productos instantáneamente.
-- **Ventaja:** Filtra de forma fluida y directa sobre los elementos renderizados en la interfaz para una experiencia de búsqueda rápida durante la atención al cliente.
+- **Funcionamiento**:Escribe en la barra de búsqueda superior para filtrar los productos instantáneamente.
+- **Ventaja**: Filtra de forma fluida y directa sobre los elementos renderizados en la interfaz para una experiencia de búsqueda rápida durante la atención al cliente.
 
 ### 🛒 Carrito de Pedidos y Resumen de Venta
 
@@ -21,22 +21,20 @@ Aplicación full-stack diseñada específicamente para optimizar la logística, 
 
 ### ✏️ Editar y Eliminar Productos
 
-- **Edición:** Cada tarjeta cuenta con un acceso rápido para modificar el nombre o el precio del producto y actualizarlo al instante.
-- **Eliminación:** Cada acción está protegida con una ventana de confirmación (Popup) para evitar borrados accidentales de los bienes del inventario.
+- **Edición**: Cada tarjeta cuenta con un acceso rápido para modificar el nombre o el precio del producto y actualizarlo al instante.
+- **Eliminación**: Cada acción está protegida con una ventana de confirmación (Popup) para evitar borrados accidentales de los bienes del inventario.
 
 ### 🖼 Gestión de Fotografías
 
-- **Funcionamiento:** Cada producto almacena una fotografía que permite el reconocimiento visual directo del material en el almacén, cargada y sincronizada desde la base de datos en la nube.
+- **Funcionamiento**: Cada producto almacena una fotografía que permite el reconocimiento visual directo del material en el almacén, cargada y sincronizada desde la base de datos en la nube.
 
 ## 🛠 Arquitectura y Tecnologías
 
 El desarrollo del proyecto está estructurado bajo buenas prácticas de ingeniería de software y un enfoque modular:
 
 - **Frontend:** Android Studio.
-- **Backend & Base de Datos:** Integración con **Firebase** (Base de datos NoSQL y almacenamiento en la nube) mediante API REST para las operaciones CRUD (Creación, Lectura, Actualización y Eliminación).
-- **Paradigmas:** Aplicación de Programación Orientada a Objetos (POO) para la estructuración limpia de clases y lógica de formularios.
-
----
+- **Backend & Base de Datos**: Integración con **Firebase** (Base de datos NoSQL y almacenamiento en la nube) mediante API REST para las operaciones CRUD (Creación, Lectura, Actualización y Eliminación).
+- **Paradigmas**: Aplicación de Programación Orientada a Objetos (POO) para la estructuración limpia de clases y lógica de formularios.
 
 ## 🛡 Seguridad y Control de Acceso
 
