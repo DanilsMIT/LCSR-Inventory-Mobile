@@ -1,0 +1,44 @@
+# LCSR Inventory APP
+
+Aplicación full-stack diseñada específicamente para optimizar la logística, control de productos y registro de ventas del negocio local **La Casa del Cielo Raso**, migrando los apuntes tradicionales de papel y lápiz a una solución digital moderna y ágil.
+
+## 🚀 Funcionalidades Principales
+
+### 🔍 Buscador en Tiempo Real
+
+- **Funcionamiento:** Escribe en la barra de búsqueda superior para filtrar los productos instantáneamente.
+- **Ventaja:** Filtra de forma fluida y directa sobre los elementos renderizados en la interfaz para una experiencia de búsqueda rápida durante la atención al cliente.
+
+### 🛒 Carrito de Pedidos y Resumen de Venta
+
+- **Funcionamiento:** Toca los elementos del inventario para agregarlos al carrito de compra.
+- **Resumen:** Cuenta con un botón central indicador del total acumulado en dinero y un popup interactivo en formato de tabla que detalla el producto, precio unitario, cantidad y la suma total para presentar el recibo directamente al cliente.
+
+### ➕ Agregar Productos
+
+- **Funcionamiento:** Haz clic en el botón flotante verde (`+`) para desplegar el formulario modal de registro.
+- **Acción:** Ingresa el nombre del artículo y su precio para sincronizarlo automáticamente con la base de datos.
+
+### ✏️ Editar y Eliminar Productos
+
+- **Edición:** Cada tarjeta cuenta con un acceso rápido para modificar el nombre o el precio del producto y actualizarlo al instante.
+- **Eliminación:** Cada acción está protegida con una ventana de confirmación (Popup) para evitar borrados accidentales de los bienes del inventario.
+
+### 🖼 Gestión de Fotografías
+
+- **Funcionamiento:** Cada producto almacena una fotografía que permite el reconocimiento visual directo del material en el almacén, cargada y sincronizada desde la base de datos en la nube.
+
+## 🛠 Arquitectura y Tecnologías
+
+El desarrollo del proyecto está estructurado bajo buenas prácticas de ingeniería de software y un enfoque modular:
+
+- **Frontend:** Android Studio.
+- **Backend & Base de Datos:** Integración con **Firebase** (Base de datos NoSQL y almacenamiento en la nube) mediante API REST para las operaciones CRUD (Creación, Lectura, Actualización y Eliminación).
+- **Paradigmas:** Aplicación de Programación Orientada a Objetos (POO) para la estructuración limpia de clases y lógica de formularios.
+
+---
+
+## 🛡 Seguridad y Control de Acceso
+
+- **Autenticación por PIN:** Cuenta con una interfaz de acceso ágil mediante PIN para asegurar que únicamente el personal autorizado gestione el inventario y las ventas del local.
+- **Sanitización:** Prevención de vulnerabilidades mediante el manejo seguro de entradas y elementos de texto en la interfaz.
