@@ -1,6 +1,5 @@
 package com.example.lcsr_inventory;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lcsr_inventory.databinding.FragmentInventoryBinding;
-import com.example.lcsr_inventory.databinding.PopupCarritoBinding;
-import com.example.lcsr_inventory.databinding.PopupFormProductBinding;
-import com.example.lcsr_inventory.databinding.PopupAlertBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +41,7 @@ public class Inventory extends Fragment {
         adapter = new ProductoAdapter(productoList, new ProductoAdapter.OnProductListener() {
             @Override
             public void onEditClick(Producto producto) {
-                mostrarPopupFormulario("Editar Producto");
+                mostrarPopupEditar(producto);
             }
 
             @Override
@@ -57,54 +53,39 @@ public class Inventory extends Fragment {
         binding.inventoryRvProducts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.inventoryRvProducts.setAdapter(adapter);
 
-        binding.inventoryBtnAdd.setOnClickListener(v -> mostrarPopupFormulario("Agregar Producto"));
+        binding.inventoryBtnAdd.setOnClickListener(v -> mostrarPopupAgregar());
 
         binding.inventoryBtnTotal.setOnClickListener(v -> mostrarPopupCarrito());
     }
 
-    private void mostrarPopupFormulario(String titulo) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        PopupFormProductBinding formBinding = PopupFormProductBinding.inflate(getLayoutInflater());
-        builder.setView(formBinding.getRoot());
-        AlertDialog dialog = builder.create();
+    private void mostrarPopupAgregar() {
+        PopupFormProduct formDialog = new PopupFormProduct((nombre, precio) -> {
+        });
+        formDialog.show(getParentFragmentManager(), "PopupFormAdd");
+    }
 
-        formBinding.popupProductTitle.setText(titulo);
-        formBinding.popupProductBtnClose.setOnClickListener(v -> dialog.dismiss());
-        formBinding.popupProductBtnSave.setOnClickListener(v -> dialog.dismiss());
-
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        }
-        dialog.show();
+    private void mostrarPopupEditar(Producto producto) {
+        PopupFormProduct formDialog = new PopupFormProduct(producto.getName(), producto.getPrice(), (nombre, precio) -> {
+        });
+        formDialog.show(getParentFragmentManager(), "PopupFormEdit");
     }
 
     private void mostrarPopupEliminar() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        PopupAlertBinding alertBinding = PopupAlertBinding.inflate(getLayoutInflater());
-        builder.setView(alertBinding.getRoot());
-        AlertDialog dialog = builder.create();
-
-        alertBinding.popupDeleteBtnAccept.setOnClickListener(v -> dialog.dismiss());
-
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        }
-        dialog.show();
+        PopupAlert alert = new PopupAlert();
+        alert.setListener(() -> {
+        });
+        alert.show(getParentFragmentManager(), "PopupAlert");
     }
 
     private void mostrarPopupCarrito() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        PopupCarritoBinding cartBinding = PopupCarritoBinding.inflate(getLayoutInflater());
-        builder.setView(cartBinding.getRoot());
-        AlertDialog dialog = builder.create();
+        List<ProductoCarrito> productosCarritoFalsos = new ArrayList<>();
+        productosCarritoFalsos.add(new ProductoCarrito("Adaptador de compresor", 10.00, 2));
 
-        cartBinding.popupCartBtnClose.setOnClickListener(v -> dialog.dismiss());
-        cartBinding.popupCartBtnConfirm.setOnClickListener(v -> dialog.dismiss());
+        double totalPrueba = 20.00;
 
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        }
-        dialog.show();
+        PopupCarrito carritoDialog = new PopupCarrito(productosCarritoFalsos, totalPrueba, () -> {
+        });
+        carritoDialog.show(getParentFragmentManager(), "PopupCarrito");
     }
 
     @Override
