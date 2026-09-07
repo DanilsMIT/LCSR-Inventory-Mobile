@@ -1,42 +1,41 @@
-# LCSR Inventory APP
+LCSR Inventory APP
+Aplicación full-stack nativa en Android diseñada específicamente para optimizar la logística, control de productos y registro de ventas del negocio local La Casa del Cielo Raso, migrando los apuntes tradicionales de papel y lápiz a una solución digital moderna, ágil y robusta.
 
-Aplicación full-stack diseñada específicamente para optimizar la logística, control de productos y registro de ventas del negocio local **La Casa del Cielo Raso**, migrando los apuntes tradicionales de papel y lápiz a una solución digital moderna y ágil.
+🚀 Funcionalidades Principales
+🔍 Buscador en Tiempo Real
+Funcionamiento: Barra de búsqueda superior para filtrar productos instantáneamente.
 
-## 🚀 Funcionalidades Principales
+Ventaja: Filtrado fluido y directo sobre los elementos renderizados (RecyclerView) para una experiencia de búsqueda ultrarrápida durante la atención al cliente.
 
-### 🔍 Buscador en Tiempo Real
+🛒 Carrito de Pedidos y Resumen de Venta
+Funcionamiento: Selección interactiva de elementos del inventario para agregarlos al carrito de compra.
 
-- **Funcionamiento**:Escribe en la barra de búsqueda superior para filtrar los productos instantáneamente.
-- **Ventaja**: Filtra de forma fluida y directa sobre los elementos renderizados en la interfaz para una experiencia de búsqueda rápida durante la atención al cliente.
+Resumen: Botón central indicador del total acumulado. Al presionarlo, despliega un DialogFragment modular en formato de tabla (producto, precio unitario, cantidad y total) para presentar el recibo directamente al cliente con proporciones visuales perfectas.
 
-### 🛒 Carrito de Pedidos y Resumen de Venta
+➕ Gestión de Inventario (CRUD)
+Agregar Productos: Botón flotante (FAB) que despliega un formulario modal (PopupFormProduct) limpio para registrar artículos con validación de datos (entradas decimales).
 
-- **Funcionamiento:** Toca los elementos del inventario para agregarlos al carrito de compra.
-- **Resumen:** Cuenta con un botón central indicador del total acumulado en dinero y un popup interactivo en formato de tabla que detalla el producto, precio unitario, cantidad y la suma total para presentar el recibo directamente al cliente.
+Editar: Acceso rápido en cada tarjeta para actualizar nombres o precios al instante.
 
-### ➕ Agregar Productos
+Eliminar: Protección contra borrados accidentales mediante una ventana de confirmación (PopupAlert) dedicada.
 
-- **Funcionamiento:** Haz clic en el botón flotante verde (`+`) para desplegar el formulario modal de registro.
-- **Acción:** Ingresa el nombre del artículo y su precio para sincronizarlo automáticamente con la base de datos.
+🖼 Gestión Visual
+Fotografías: Cada producto almacena una fotografía que permite el reconocimiento visual directo del material en el almacén, sincronizada desde la base de datos en la nube.
 
-### ✏️ Editar y Eliminar Productos
+🛠 Arquitectura y Tecnologías
+El proyecto está estructurado bajo estándares profesionales de ingeniería de software, enfocándose en la modularidad y el rendimiento:
 
-- **Edición**: Cada tarjeta cuenta con un acceso rápido para modificar el nombre o el precio del producto y actualizarlo al instante.
-- **Eliminación**: Cada acción está protegida con una ventana de confirmación (Popup) para evitar borrados accidentales de los bienes del inventario.
+Frontend: Android Nativo (Java y XML).
 
-### 🖼 Gestión de Fotografías
+Arquitectura UI: Implementación de ViewBinding para una interacción segura con las vistas y eliminación de crashes por nulos.
 
-- **Funcionamiento**: Cada producto almacena una fotografía que permite el reconocimiento visual directo del material en el almacén, cargada y sincronizada desde la base de datos en la nube.
+Componentes: Uso intensivo de Fragments para navegación fluida y DialogFragments personalizados con fondos transparentes para los modales, evitando fugas de memoria y manteniendo el estado de la app.
 
-## 🛠 Arquitectura y Tecnologías
+Backend & Base de Datos: Integración con Supabase (alternativa open-source a Firebase con PostgreSQL) mediante API REST para las operaciones de lectura, escritura y almacenamiento.
 
-El desarrollo del proyecto está estructurado bajo buenas prácticas de ingeniería de software y un enfoque modular:
+🛡 UI/UX y Seguridad
+Estabilidad Visual: Orientación de pantalla bloqueada en modo vertical (portrait) desde el AndroidManifest para garantizar que la jerarquía de los ViewGroups y las tablas de precios mantengan su integridad sin importar el manejo del dispositivo.
 
-- **Frontend:** Android Studio.
-- **Backend & Base de Datos**: Integración con **Firebase** (Base de datos NoSQL y almacenamiento en la nube) mediante API REST para las operaciones CRUD (Creación, Lectura, Actualización y Eliminación).
-- **Paradigmas**: Aplicación de Programación Orientada a Objetos (POO) para la estructuración limpia de clases y lógica de formularios.
+Diseño Limpio: Eliminación de sombras y capas oscuras redundantes del sistema operativo, logrando tarjetas flotantes (CardViews) con bordes redondeados y una estética Material Design impecable.
 
-## 🛡 Seguridad y Control de Acceso
-
-- **Autenticación por PIN:** Cuenta con una interfaz de acceso ágil mediante PIN para asegurar que únicamente el personal autorizado gestione el inventario y las ventas del local.
-- **Sanitización:** Prevención de vulnerabilidades mediante el manejo seguro de entradas y elementos de texto en la interfaz.
+Autenticación por PIN: Interfaz de acceso ágil para asegurar que únicamente el personal autorizado gestione el inventario y las ventas del local.
