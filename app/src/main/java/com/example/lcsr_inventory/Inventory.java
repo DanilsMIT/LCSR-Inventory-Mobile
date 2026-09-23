@@ -1,11 +1,13 @@
 package com.example.lcsr_inventory;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
+import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ public class Inventory extends Fragment {
 
     private FragmentInventoryBinding binding;
     private ProductoAdapter adapter;
-    private List<Producto> productoList;
+    private InventoryViewModel viewModel;
 
     @Nullable
     @Override
@@ -33,12 +35,11 @@ public class Inventory extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        productoList = new ArrayList<>();
-        productoList.add(new Producto("Adaptador de compresor", 10.00));
-        productoList.add(new Producto("Angulo galvanizado 45mm", 1.00));
-        productoList.add(new Producto("Angulo prepintado (10 pies)", 1.50));
+        // Inicialización del ViewModel
+        viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
 
-        adapter = new ProductoAdapter(productoList, new ProductoAdapter.OnProductListener() {
+        // Configuración del Adaptador y Eventos de los Items
+        adapter = new ProductoAdapter(new ArrayList<>(), new ProductoAdapter.OnProductListener() {
             @Override
             public void onEditClick(Producto producto) {
                 mostrarPopupEditar(producto);
@@ -46,38 +47,65 @@ public class Inventory extends Fragment {
 
             @Override
             public void onDeleteLongClick(Producto producto) {
-                mostrarPopupEliminar();
+                mostrarPopupEliminar(producto);
             }
         });
 
+        // Configuración del RecyclerView
         binding.inventoryRvProducts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.inventoryRvProducts.setAdapter(adapter);
 
-        binding.inventoryBtnAdd.setOnClickListener(v -> mostrarPopupAgregar());
+        // Observador de Datos en Tiempo Real (GET)
+        viewModel.getProductos().observe(getViewLifecycleOwner(), productos -> {
+            adapter.actualizarLista(productos);
+        });
 
+        // Barra de Búsqueda (Filtro Local)
+        binding.inventoryInputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (adapter != null) {
+                    adapter.filtrar(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // Eventos de Botones Principales
+        binding.inventoryBtnAdd.setOnClickListener(v -> mostrarPopupAgregar());
         binding.inventoryBtnTotal.setOnClickListener(v -> mostrarPopupCarrito());
     }
 
+    // Funciones de Lanzamiento de Popups (Modales)
     private void mostrarPopupAgregar() {
         PopupFormProduct formDialog = new PopupFormProduct((nombre, precio) -> {
+            viewModel.agregarProducto(nombre, precio);
         });
         formDialog.show(getParentFragmentManager(), "PopupFormAdd");
     }
 
     private void mostrarPopupEditar(Producto producto) {
         PopupFormProduct formDialog = new PopupFormProduct(producto.getName(), producto.getPrice(), (nombre, precio) -> {
+            viewModel.editarProducto(producto.getId(), nombre, precio);
         });
         formDialog.show(getParentFragmentManager(), "PopupFormEdit");
     }
 
-    private void mostrarPopupEliminar() {
+    private void mostrarPopupEliminar(Producto producto) {
         PopupAlert alert = new PopupAlert();
         alert.setListener(() -> {
+            viewModel.eliminarProducto(producto.getId());
         });
         alert.show(getParentFragmentManager(), "PopupAlert");
     }
 
     private void mostrarPopupCarrito() {
+        // Datos simulados para estructura inicial del carrito
         List<ProductoCarrito> productosCarritoFalsos = new ArrayList<>();
         productosCarritoFalsos.add(new ProductoCarrito("Adaptador de compresor", 10.00, 2));
 

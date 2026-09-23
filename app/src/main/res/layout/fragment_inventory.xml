@@ -63,6 +63,8 @@
         android:hint="Buscar productos..."
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:textColor="#000000"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inventory__txt_subtitle" />

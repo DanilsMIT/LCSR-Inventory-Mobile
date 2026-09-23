@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "179807017010",
+    "firebase_url": "https://lcsr-api-default-rtdb.firebaseio.com",
+    "project_id": "lcsr-api",
+    "storage_bucket": "lcsr-api.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179807017010:android:509fd1eed14b604724442b",
+        "android_client_info": {
+          "package_name": "com.example.lcsr_inventory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZvSjA7V8voBg4dTn8exEkoiULQghHV9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

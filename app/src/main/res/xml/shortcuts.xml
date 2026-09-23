@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="com.example.lcsr_inventory"
+            android:targetClass="com.example.lcsr_inventory.MainActivity">
+            <parameter
+                android:name="feature"
+                android:key="featureParam" />
+        </intent>
+    </capability>
+
+</shortcuts>

@@ -66,6 +66,7 @@ public class PopupCarrito extends DialogFragment {
         if (dialog != null && dialog.getWindow() != null) {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.PopupAnimation;
         }
     }
 

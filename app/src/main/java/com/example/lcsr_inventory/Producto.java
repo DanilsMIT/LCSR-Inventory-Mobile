@@ -1,36 +1,37 @@
 package com.example.lcsr_inventory;
 
+import com.google.firebase.database.PropertyName;
+
 public class Producto {
+    private String id;
     private String name;
     private double price;
-    private int image = R.drawable.logo;;
+    private int image = R.drawable.logo;
 
-    public Producto(String name, double price) {
+    public Producto() {
+    }
+
+    public Producto(String id, String name, double price) {
+        this.id = id;
         this.name = name;
         this.price = price;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @PropertyName("articulo")
+    public String getName() { return name; }
 
-    public double getPrice() {
-        return price;
-    }
+    @PropertyName("articulo")
+    public void setName(String name) { this.name = name; }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    @PropertyName("precio")
+    public double getPrice() { return price; }
 
-    public int getImage() {
-        return image;
-    }
+    @PropertyName("precio")
+    public void setPrice(double price) { this.price = price; }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
+    public int getImage() { return image; }
+    public void setImage(int image) { this.image = image; }
 }
