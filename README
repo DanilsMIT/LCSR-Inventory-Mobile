@@ -2,38 +2,44 @@ LCSR Inventory APP
 Aplicación full-stack nativa en Android diseñada específicamente para optimizar la logística, control de productos y registro de ventas del negocio local La Casa del Cielo Raso, migrando los apuntes tradicionales de papel y lápiz a una solución digital moderna, ágil y robusta.
 
 🚀 Funcionalidades Principales
-🔍 Buscador en Tiempo Real
+
+🔍 Buscador Inteligente en Tiempo Real
+
 Funcionamiento: Barra de búsqueda superior para filtrar productos instantáneamente.
 
-Ventaja: Filtrado fluido y directo sobre los elementos renderizados (RecyclerView) para una experiencia de búsqueda ultrarrápida durante la atención al cliente.
+Ventaja: Filtrado avanzado e insensible a tildes con soporte para coincidencias parciales y multi-palabra. Búsqueda fluida directamente sobre los elementos renderizados (RecyclerView) para una experiencia ultrarrápida durante la atención al cliente.
 
 🛒 Carrito de Pedidos y Resumen de Venta
+
 Funcionamiento: Selección interactiva de elementos del inventario para agregarlos al carrito de compra.
 
-Resumen: Botón central indicador del total acumulado. Al presionarlo, despliega un DialogFragment modular en formato de tabla (producto, precio unitario, cantidad y total) para presentar el recibo directamente al cliente con proporciones visuales perfectas.
+Resumen: Botón central indicador del total acumulado. Al presionarlo, despliega un DialogFragment modular en formato de tabla (producto, precio unitario, cantidad y total) para presentar el recibo directamente al cliente con proporciones visuales perfectas. Preparado estructuralmente para registrar el historial de transacciones.
 
 ➕ Gestión de Inventario (CRUD)
+
 Agregar Productos: Botón flotante (FAB) que despliega un formulario modal (PopupFormProduct) limpio para registrar artículos con validación de datos (entradas decimales).
 
 Editar: Acceso rápido en cada tarjeta para actualizar nombres o precios al instante.
 
 Eliminar: Protección contra borrados accidentales mediante una ventana de confirmación (PopupAlert) dedicada.
 
-🖼 Gestión Visual
-Fotografías: Cada producto almacena una fotografía que permite el reconocimiento visual directo del material en el almacén, sincronizada desde la base de datos en la nube.
+🖼 Gestión Visual Zero-Cost
+
+Fotografías: Cada producto almacena una fotografía que permite el reconocimiento visual directo del material en el almacén. Para asegurar la viabilidad del proyecto a largo plazo sin costos recurrentes, los archivos de imagen se capturan y guardan localmente en la memoria interna del dispositivo, mientras que la base de datos en la nube almacena y sincroniza únicamente la ruta de acceso al archivo.
 
 🛠 Arquitectura y Tecnologías
-El proyecto está estructurado bajo estándares profesionales de ingeniería de software, enfocándose en la modularidad y el rendimiento:
+El proyecto está estructurado bajo estándares profesionales de ingeniería de software, enfocándose en la modularidad, el rendimiento y la optimización de recursos:
 
 Frontend: Android Nativo (Java y XML).
 
-Arquitectura UI: Implementación de ViewBinding para una interacción segura con las vistas y eliminación de crashes por nulos.
+Arquitectura UI: Implementación de ViewBinding para una interacción segura con las vistas y eliminación de crashes por referencias nulas.
 
 Componentes: Uso intensivo de Fragments para navegación fluida y DialogFragments personalizados con fondos transparentes para los modales, evitando fugas de memoria y manteniendo el estado de la app.
 
-Backend & Base de Datos: Integración con Supabase (alternativa open-source a Firebase con PostgreSQL) mediante API REST para las operaciones de lectura, escritura y almacenamiento.
+Backend & Base de Datos: Integración con Firebase Realtime Database mediante estructura de datos NoSQL para la sincronización instantánea del catálogo (textos, precios, IDs únicos). Las operaciones de lectura y escritura aprovechan la capa gratuita permanente de Firebase, mientras que los archivos multimedia son gestionados nativamente por el almacenamiento local del hardware.
 
 🛡 UI/UX y Seguridad
+
 Estabilidad Visual: Orientación de pantalla bloqueada en modo vertical (portrait) desde el AndroidManifest para garantizar que la jerarquía de los ViewGroups y las tablas de precios mantengan su integridad sin importar el manejo del dispositivo.
 
 Diseño Limpio: Eliminación de sombras y capas oscuras redundantes del sistema operativo, logrando tarjetas flotantes (CardViews) con bordes redondeados y una estética Material Design impecable.
