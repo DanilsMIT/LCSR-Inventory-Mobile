@@ -30,6 +30,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    
+    // Suprimir el warning molesto del 16 KB Alignment temporalmente
+    // ya que Cloudinary o Firebase aún traen librerías C++ nativas antiguas.
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
     buildFeatures {
         viewBinding = true;
     }
@@ -40,6 +49,10 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.messaging)
+    implementation(libs.cloudinary.android)
+    implementation(libs.glide)
+    implementation("androidx.exifinterface:exifinterface:1.3.6")
     implementation(libs.material)
     implementation(libs.recyclerview)
     testImplementation(libs.junit)

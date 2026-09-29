@@ -18,11 +18,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.util.Collections;
+
 public class ventas extends Fragment {
 
     private FragmentVentasBinding binding;
     private RegistroVentaAdapter adapter;
     private List<RegistroVenta> listaVentas;
+    private DatabaseReference ventasRef;
 
     @Nullable
     @Override
@@ -36,21 +44,59 @@ public class ventas extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.ventasRvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
-
         listaVentas = new ArrayList<>();
 
-        List<ProductoCarrito> productosFalsos = new ArrayList<>();
-        productosFalsos.add(new ProductoCarrito("Adaptador de compresor", 10.00, 2));
-        productosFalsos.add(new ProductoCarrito("Angulo galvanizado 45mm", 1.00, 1));
+        adapter = new RegistroVentaAdapter(listaVentas, new RegistroVentaAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(RegistroVenta venta) {
+                mostrarPopupDetalleVenta(venta);
+            }
 
-        listaVentas.add(new RegistroVenta("REC-001", "05/09/2026", productosFalsos, 21.00));
-        listaVentas.add(new RegistroVenta("REC-002", "04/09/2026", productosFalsos, 21.00));
-
-        adapter = new RegistroVentaAdapter(listaVentas, venta -> {
-            mostrarPopupDetalleVenta(venta);
+            @Override
+            public void onDeleteClick(RegistroVenta venta) {
+                eliminarRegistroVenta(venta);
+            }
         });
-
         binding.ventasRvHistory.setAdapter(adapter);
+
+        ventasRef = FirebaseDatabase.getInstance().getReference("ventas");
+        cargarVentasDesdeFirebase();
+    }
+
+    private void cargarVentasDesdeFirebase() {
+        ventasRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listaVentas.clear();
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    RegistroVenta venta = item.getValue(RegistroVenta.class);
+                    if (venta != null) {
+                        listaVentas.add(venta);
+                    }
+                }
+                
+                // Opcional: ordenar de más reciente a más antiguo
+                Collections.reverse(listaVentas);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void eliminarRegistroVenta(RegistroVenta venta) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Eliminar Registro")
+                .setMessage("¿Estás seguro de que deseas eliminar este registro de venta?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    if (venta.getId() != null) {
+                        ventasRef.child(venta.getId()).removeValue();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     private void mostrarPopupDetalleVenta(RegistroVenta venta) {
@@ -59,7 +105,9 @@ public class ventas extends Fragment {
         builder.setView(cartBinding.getRoot());
         AlertDialog dialog = builder.create();
 
-        cartBinding.popupCartTitle.setText("DETALLE: " + venta.getId());
+        cartBinding.popupCartTitle.setText("DETALLE DE VENTA");
+        cartBinding.popupCartDate.setVisibility(View.VISIBLE);
+        cartBinding.popupCartDate.setText("Fecha: " + venta.getDate());
         cartBinding.popupCartTxtTotal.setText(String.format(Locale.US, "TOTAL: $ %.2f", venta.getTotal()));
 
         cartBinding.popupCartBtnConfirm.setText("CERRAR");

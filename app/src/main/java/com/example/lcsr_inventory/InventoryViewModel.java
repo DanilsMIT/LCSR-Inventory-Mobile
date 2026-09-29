@@ -67,13 +67,40 @@ public class InventoryViewModel extends ViewModel {
     // Patch
     public void editarProducto(String id, String nuevoNombre, double nuevoPrecio) {
         Map<String, Object> actualizaciones = new HashMap<>();
-        actualizaciones.put("name", nuevoNombre);
-        actualizaciones.put("price", nuevoPrecio);
+        actualizaciones.put("articulo", nuevoNombre); // Firebase usa "articulo"
+        actualizaciones.put("precio", nuevoPrecio);   // Firebase usa "precio"
+        actualizaciones.put("app_secret", "LCSR_2026_secreto");
 
         productosRef.child(id).updateChildren(actualizaciones);
     }
-    // DELETE: Borrar producto de la base de datos
-    public void eliminarProducto(String id) {
-        productosRef.child(id).removeValue();
+    // Patch: Actualizar la ruta y el ID de la imagen en Cloudinary
+    public void actualizarImagenProducto(String id, String imagePath, String imagePublicId) {
+        Map<String, Object> actualizaciones = new HashMap<>();
+        actualizaciones.put("imagePath", imagePath);
+        actualizaciones.put("imagePublicId", imagePublicId);
+        actualizaciones.put("app_secret", "LCSR_2026_secreto"); // Secreto para pasar reglas
+        
+        productosRef.child(id).updateChildren(actualizaciones);
+    }
+
+    // DELETE: Borrar producto de la base de datos (y su foto)
+    public void eliminarProducto(Producto producto) {
+        if (producto.getImagePublicId() != null && !producto.getImagePublicId().isEmpty()) {
+            new Thread(() -> {
+                com.example.lcsr_inventory.utils.ImageUtils.borrarImagenDeCloudinary(null, producto.getImagePublicId());
+            }).start();
+        }
+        productosRef.child(producto.getId()).removeValue();
+    }
+
+    // POST: Registrar nueva venta
+    public void registrarVenta(List<ProductoCarrito> productosVendidos, double total) {
+        DatabaseReference ventasRef = FirebaseDatabase.getInstance().getReference("ventas");
+        String nuevoId = ventasRef.push().getKey();
+        if (nuevoId != null) {
+            String fecha = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
+            RegistroVenta nuevaVenta = new RegistroVenta(nuevoId, fecha, productosVendidos, total);
+            ventasRef.child(nuevoId).setValue(nuevaVenta);
+        }
     }
 }

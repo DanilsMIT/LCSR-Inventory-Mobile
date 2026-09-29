@@ -18,6 +18,7 @@ public class RegistroVentaAdapter extends RecyclerView.Adapter<RegistroVentaAdap
 
     public interface OnItemClickListener {
         void onItemClick(RegistroVenta venta);
+        void onDeleteClick(RegistroVenta venta);
     }
 
     public RegistroVentaAdapter(List<RegistroVenta> ventaList, OnItemClickListener listener) {
@@ -38,7 +39,12 @@ public class RegistroVentaAdapter extends RecyclerView.Adapter<RegistroVentaAdap
     public void onBindViewHolder(@NonNull VentaViewHolder holder, int position) {
         RegistroVenta venta = ventaList.get(position);
 
-        holder.binding.itemVentaId.setText(venta.getId());
+        // Generar un número de recibo amigable a partir del ID de Firebase
+        String idCorto = venta.getId() != null && venta.getId().length() > 6 
+            ? venta.getId().substring(venta.getId().length() - 6).toUpperCase() 
+            : "000000";
+            
+        holder.binding.itemVentaId.setText("#REC-" + idCorto);
         holder.binding.itemVentaDate.setText(venta.getDate());
         holder.binding.itemVentaTotal.setText(String.format(Locale.US, "$ %.2f", venta.getTotal()));
 
@@ -46,6 +52,14 @@ public class RegistroVentaAdapter extends RecyclerView.Adapter<RegistroVentaAdap
             if (listener != null) {
                 listener.onItemClick(venta);
             }
+        });
+
+        // Eliminar historial con presión larga
+        holder.itemView.setOnLongClickListener(v -> {
+            if (listener != null) {
+                listener.onDeleteClick(venta);
+            }
+            return true;
         });
     }
 

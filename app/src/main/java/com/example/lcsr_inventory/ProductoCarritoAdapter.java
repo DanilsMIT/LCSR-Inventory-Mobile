@@ -13,8 +13,8 @@ import java.util.Locale;
 
 public class ProductoCarritoAdapter extends RecyclerView.Adapter<ProductoCarritoAdapter.CarritoViewHolder> {
 
-    private List<ProductoCarrito> carritoList;
-    private OnCartListener listener;
+    private final List<ProductoCarrito> carritoList;
+    private final OnCartListener listener;
 
     public interface OnCartListener {
         void onDeleteCartItem(ProductoCarrito producto);
@@ -43,6 +43,7 @@ public class ProductoCarritoAdapter extends RecyclerView.Adapter<ProductoCarrito
         holder.binding.itemCartQuantity.setText(String.valueOf(producto.getCantidad()));
         holder.binding.itemCartSubtotal.setText(String.format(Locale.US, "$ %.2f", producto.getSubtotal()));
 
+        // Mantener presionado para eliminar del carrito
         holder.itemView.setOnLongClickListener(v -> {
             if (listener != null) {
                 listener.onDeleteCartItem(producto);

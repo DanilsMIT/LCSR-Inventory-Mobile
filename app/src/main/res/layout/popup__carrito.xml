@@ -36,6 +36,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!-- Nueva etiqueta para la Fecha/Hora (Oculta por defecto) -->
+            <TextView
+                android:id="@+id/popup_cart__date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Fecha: --/--/----"
+                android:textAlignment="center"
+                android:textColor="#757575"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/popup_cart__btn_close"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/popup_cart__title" />
+
             <ImageButton
                 android:id="@+id/popup_cart__btn_close"
                 android:layout_width="32dp"
@@ -50,17 +66,19 @@
                 android:id="@+id/popup_cart__headers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal"
                 android:weightSum="10"
-                app:layout_constraintTop_toBottomOf="@+id/popup_cart__title">
+                app:layout_constraintTop_toBottomOf="@+id/popup_cart__date">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:text="Producto"
-                    android:textSize="12sp"
+                    android:textColor="#555555"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -69,25 +87,28 @@
                     android:layout_weight="2"
                     android:text="Precio"
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:textColor="#555555"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:text="Cant."
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:textColor="#555555"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:text="Total"
                     android:textAlignment="textEnd"
-                    android:textSize="12sp"
+                    android:textColor="#555555"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -95,8 +116,8 @@
                 android:id="@+id/popup_cart__divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="4dp"
-                android:background="#E0E0E0"
+                android:layout_marginTop="8dp"
+                android:background="#DDDDDD"
                 app:layout_constraintTop_toBottomOf="@+id/popup_cart__headers" />
 
             <androidx.recyclerview.widget.RecyclerView

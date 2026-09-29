@@ -5,6 +5,10 @@ public class ProductoCarrito {
     private double price;
     private int cantidad;
 
+    public ProductoCarrito() {
+        // Constructor vacío obligatorio para Firebase
+    }
+
     public ProductoCarrito(String name, double price, int cantidad) {
         this.name = name;
         this.price = price;

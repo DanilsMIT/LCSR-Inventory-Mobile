@@ -13,15 +13,18 @@ import java.util.List;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
 
-    // Variables de Lista y Listener
+    // Variables de Lista y Listener (Solo dejamos uno)
     private List<Producto> listaProductos;
     private List<Producto> listaOriginal;
-    private OnProductListener listener;
+    private final OnProductListener listener;
 
-    // Interfaz de Eventos
+    // Interfaz de Eventos Unificada
     public interface OnProductListener {
         void onEditClick(Producto producto);
         void onDeleteLongClick(Producto producto);
+        void onItemClick(Producto producto); // <- Para abrir el popup de cantidad
+        void onImageClick(Producto producto); // <- Ver imagen en grande
+        void onImageLongClick(Producto producto); // <- Cambiar foto
     }
 
     // Constructor
@@ -49,7 +52,6 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
             for (Producto producto : listaOriginal) {
                 String nombreNormalizado = limpiarTexto(producto.getName());
-
 
                 boolean contieneTodas = true;
                 for (String palabra : palabrasBuscadas) {
@@ -89,18 +91,49 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         Producto producto = listaProductos.get(position);
 
         holder.binding.itemProductName.setText(producto.getName());
-        holder.binding.itemProductPrice.setText("$ " + producto.getPrice());
-        holder.binding.itemProductImg.setImageResource(producto.getImage());
+        // Forzamos siempre 2 decimales usando String.format
+        holder.binding.itemProductPrice.setText(String.format(java.util.Locale.US, "$ %.2f", producto.getPrice()));
+        
+        // Cargar imagen usando Glide (Soporta links HTTPS de Cloudinary y optimización en caché)
+        if (producto.getImagePath() != null && !producto.getImagePath().isEmpty()) {
+            com.bumptech.glide.Glide.with(holder.itemView.getContext())
+                    .load(producto.getImagePath())
+                    .placeholder(producto.getImage()) // Logo por defecto mientras carga
+                    .error(producto.getImage()) // Logo por defecto si falla el internet
+                    .into(holder.binding.itemProductImg);
+        } else {
+            holder.binding.itemProductImg.setImageResource(producto.getImage());
+        }
 
+        // Clic simple en la imagen (Ver foto en grande)
+        holder.binding.itemProductImg.setOnClickListener(v -> {
+            if (listener != null) listener.onImageClick(producto);
+        });
+
+        // Mantener presionado en la imagen (Cambiar foto)
+        holder.binding.itemProductImg.setOnLongClickListener(v -> {
+            if (listener != null) listener.onImageLongClick(producto);
+            return true;
+        });
+
+        // 1. Clic en el botón de Editar
         holder.binding.itemProductEdit.setOnClickListener(v -> {
             if (listener != null) listener.onEditClick(producto);
         });
 
+        // 2. Mantener presionado en la tarjeta para Eliminar
         holder.itemView.setOnLongClickListener(v -> {
             if (listener != null) {
                 listener.onDeleteLongClick(producto);
             }
-            return true;
+            return true; // true indica que consumimos el evento (no activa el clic normal)
+        });
+
+        // 3. NUEVO: Toque simple en la tarjeta para el Carrito
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(producto);
+            }
         });
     }
 
