@@ -39,13 +39,20 @@ public class RegistroVentaAdapter extends RecyclerView.Adapter<RegistroVentaAdap
     public void onBindViewHolder(@NonNull VentaViewHolder holder, int position) {
         RegistroVenta venta = ventaList.get(position);
 
-        // Generar un número de recibo amigable a partir del ID de Firebase
-        String idCorto = venta.getId() != null && venta.getId().length() > 6 
-            ? venta.getId().substring(venta.getId().length() - 6).toUpperCase() 
-            : "000000";
+        // Ya no mostraremos el ID feo, en su lugar pondremos "Venta - [Fecha sin hora]"
+        String fechaCompleta = venta.getDate(); // Ej: "30/09/2026 13:04"
+        String fechaCorta = "Venta";
+        String horaCorta = "";
+        
+        if (fechaCompleta != null && fechaCompleta.length() >= 10) {
+            fechaCorta = "Venta del " + fechaCompleta.substring(0, 10); // "Venta del 30/09/2026"
+            if (fechaCompleta.length() > 10) {
+                horaCorta = "Hora: " + fechaCompleta.substring(11).trim(); // "Hora: 13:04"
+            }
+        }
             
-        holder.binding.itemVentaId.setText("#REC-" + idCorto);
-        holder.binding.itemVentaDate.setText(venta.getDate());
+        holder.binding.itemVentaId.setText(fechaCorta);
+        holder.binding.itemVentaDate.setText(horaCorta);
         holder.binding.itemVentaTotal.setText(String.format(Locale.US, "$ %.2f", venta.getTotal()));
 
         holder.itemView.setOnClickListener(v -> {

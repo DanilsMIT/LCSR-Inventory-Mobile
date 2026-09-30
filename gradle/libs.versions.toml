@@ -10,9 +10,10 @@ constraintlayout = "2.2.2"
 recyclerview = "1.4.0"
 googleGmsGoogleServices = "4.5.0"
 firebaseDatabase = "22.0.2"
+firebaseAuth = "22.3.1"
+playServicesAuth = "21.0.0"
 cloudinary = "2.5.0"
 glide = "4.16.0"
-firebaseMessaging = "24.0.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,7 +25,8 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 cloudinary-android = { group = "com.cloudinary", name = "cloudinary-android", version.ref = "cloudinary" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 

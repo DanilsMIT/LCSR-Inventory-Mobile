@@ -41,10 +41,16 @@ public class PopupImageViewer extends DialogFragment {
         // Cerrar tocando la "X"
         binding.popupViewerBtnClose.setOnClickListener(v -> dismiss());
         
-        // Cerrar tocando el fondo (cualquier lugar fuera de la imagen)
+        // El DialogFragment por defecto ya permite cerrar tocando fuera si le damos la instrucción al Dialog
+        if (getDialog() != null) {
+            getDialog().setCanceledOnTouchOutside(true);
+        }
+        
+        // HACK: Como el FrameLayout abarca todo el tamaño posible por culpa de la imagen, 
+        // vamos a añadir un "click listener" manual a todo el RelativeLayout (que es el fondo transparente)
         binding.popupViewerRoot.setOnClickListener(v -> dismiss());
         
-        // Evitar que toque la imagen y se cierre
+        // Evitamos que al tocar la foto se cierre
         binding.popupViewerImg.setOnClickListener(v -> {});
         
         if (imagePath != null && !imagePath.isEmpty()) {

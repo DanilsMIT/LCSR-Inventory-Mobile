@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/register__title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="CREAR CUENTA"
+        android:textColor="#333333"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/register__input_email"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/white"
+        android:elevation="2dp"
+        android:hint="Correo Electrónico"
+        android:inputType="textEmailAddress"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="#333333"
+        android:textColorHint="#999999"
+        app:layout_constraintTop_toBottomOf="@+id/register__title" />
+
+    <!-- Contenedor para Contraseña con Ojo -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register__layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="#757575"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/register__input_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register__input_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="#333333"
+            android:textColorHint="#999999" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Contenedor para Confirmar Contraseña con Ojo -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register__layout_password_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="#757575"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@+id/register__layout_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register__input_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:hint="Confirmar Contraseña"
+            android:inputType="textPassword"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="#333333"
+            android:textColorHint="#999999" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/register__btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#2980B9"
+        android:text="Registrarse"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/register__layout_password_confirm" />
+
+    <TextView
+        android:id="@+id/register__tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="¿Ya tienes cuenta? Inicia sesión aquí"
+        android:textColor="#27AE60"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register__btn_register" />
+
+    <ProgressBar
+        android:id="@+id/register__progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

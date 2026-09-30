@@ -11,4 +11,9 @@
             android:icon="@drawable/icons8_ventas_totales_100"
             android:title="Ventas" />
     </group>
+    <item
+        android:id="@+id/menu__item_logout"
+        android:icon="@android:drawable/ic_lock_power_off"
+        android:title="Cerrar Sesión" />
+
 </menu>
