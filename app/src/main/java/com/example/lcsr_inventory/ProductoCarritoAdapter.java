@@ -17,7 +17,7 @@ public class ProductoCarritoAdapter extends RecyclerView.Adapter<ProductoCarrito
     private final OnCartListener listener;
 
     public interface OnCartListener {
-        void onDeleteCartItem(ProductoCarrito producto);
+        void onDeleteCartItem(int position, ProductoCarrito producto);
     }
 
     public ProductoCarritoAdapter(List<ProductoCarrito> carritoList, OnCartListener listener) {
@@ -43,12 +43,12 @@ public class ProductoCarritoAdapter extends RecyclerView.Adapter<ProductoCarrito
         holder.binding.itemCartQuantity.setText(String.valueOf(producto.getCantidad()));
         holder.binding.itemCartSubtotal.setText(String.format(Locale.US, "$ %.2f", producto.getSubtotal()));
 
-        // Mantener presionado para eliminar del carrito
-        holder.itemView.setOnLongClickListener(v -> {
-            if (listener != null) {
-                listener.onDeleteCartItem(producto);
+        // Botón explícito para eliminar del carrito
+        holder.binding.itemCartBtnDelete.setOnClickListener(v -> {
+            int pos = holder.getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION && listener != null) {
+                listener.onDeleteCartItem(pos, producto);
             }
-            return true;
         });
     }
 

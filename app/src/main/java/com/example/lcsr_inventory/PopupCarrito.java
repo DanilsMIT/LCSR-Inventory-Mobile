@@ -46,11 +46,17 @@ public class PopupCarrito extends DialogFragment {
 
         binding.popupCartTxtTotal.setText(String.format(Locale.US, "TOTAL: $ %.2f", totalVenta));
 
-        ProductoCarritoAdapter adapter = new ProductoCarritoAdapter(listaProductos, producto -> {
-            // Lógica cuando se elimina un producto del carrito manteniendo presionado
+        ProductoCarritoAdapter adapter = new ProductoCarritoAdapter(listaProductos, (position, producto) -> {
+            // Lógica cuando se elimina un producto del carrito tocando la papelera
             totalVenta -= producto.getSubtotal();
-            listaProductos.remove(producto);
+            listaProductos.remove(position); // Borramos por posición exacta, no por referencia fantasma
             binding.popupCartTxtTotal.setText(String.format(Locale.US, "TOTAL: $ %.2f", totalVenta));
+            
+            // Actualizamos visualmente el adaptador
+            if (binding.popupCartRvItems.getAdapter() != null) {
+                binding.popupCartRvItems.getAdapter().notifyItemRemoved(position);
+                binding.popupCartRvItems.getAdapter().notifyItemRangeChanged(position, listaProductos.size());
+            }
             
             // Si el carrito se queda vacío, cerramos el popup
             if (listaProductos.isEmpty()) {
