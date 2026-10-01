@@ -20,9 +20,12 @@ public class ProductoCarritoAdapter extends RecyclerView.Adapter<ProductoCarrito
         void onDeleteCartItem(int position, ProductoCarrito producto);
     }
 
+    private boolean isReadOnly;
+
     public ProductoCarritoAdapter(List<ProductoCarrito> carritoList, OnCartListener listener) {
         this.carritoList = carritoList;
         this.listener = listener;
+        this.isReadOnly = (listener == null);
     }
 
     @NonNull
@@ -43,13 +46,29 @@ public class ProductoCarritoAdapter extends RecyclerView.Adapter<ProductoCarrito
         holder.binding.itemCartQuantity.setText(String.valueOf(producto.getCantidad()));
         holder.binding.itemCartSubtotal.setText(String.format(Locale.US, "$ %.2f", producto.getSubtotal()));
 
-        // Botón explícito para eliminar del carrito
-        holder.binding.itemCartBtnDelete.setOnClickListener(v -> {
-            int pos = holder.getAdapterPosition();
-            if (pos != RecyclerView.NO_POSITION && listener != null) {
-                listener.onDeleteCartItem(pos, producto);
-            }
-        });
+        // Ocultamos el tacho de basura si estamos en modo Solo Lectura (Historial)
+        if (isReadOnly) {
+            holder.binding.itemCartBtnDelete.setVisibility(android.view.View.GONE);
+        } else {
+            holder.binding.itemCartBtnDelete.setVisibility(android.view.View.VISIBLE);
+            
+            // Botón explícito para eliminar del carrito (tachito)
+            holder.binding.itemCartBtnDelete.setOnClickListener(v -> {
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION && listener != null) {
+                    listener.onDeleteCartItem(pos, producto);
+                }
+            });
+            
+            // También mantenemos el "mantener presionado" por si a alguien se le escapa el dedo
+            holder.itemView.setOnLongClickListener(v -> {
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION && listener != null) {
+                    listener.onDeleteCartItem(pos, producto);
+                }
+                return true;
+            });
+        }
     }
 
     @Override
