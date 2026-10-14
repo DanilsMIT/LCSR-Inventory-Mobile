@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <ImageButton
+            android:id="@+id/popup_ver_cliente__btn_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#888888" />
+
+        <ImageView
+            android:id="@+id/popup_ver_cliente__icono"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@android:drawable/ic_menu_myplaces"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#27AE60" />
+
+        <TextView
+            android:id="@+id/popup_ver_cliente__nombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Nombre del Cliente"
+            android:textAlignment="center"
+            android:textColor="#333333"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_ver_cliente__icono" />
+
+        <View
+            android:id="@+id/popup_ver_cliente__divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="#E0E0E0"
+            app:layout_constraintTop_toBottomOf="@+id/popup_ver_cliente__nombre" />
+
+        <!-- Cédula -->
+        <TextView
+            android:id="@+id/popup_ver_cliente__lbl_cedula"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Cédula:"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_ver_cliente__divider" />
+
+        <TextView
+            android:id="@+id/popup_ver_cliente__val_cedula"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1234567890"
+            android:textAlignment="textEnd"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/popup_ver_cliente__lbl_cedula"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/popup_ver_cliente__lbl_cedula"
+            app:layout_constraintTop_toTopOf="@+id/popup_ver_cliente__lbl_cedula" />
+
+        <!-- RUC -->
+        <TextView
+            android:id="@+id/popup_ver_cliente__lbl_ruc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="RUC:"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_ver_cliente__lbl_cedula" />
+
+        <TextView
+            android:id="@+id/popup_ver_cliente__val_ruc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1234567890001"
+            android:textAlignment="textEnd"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/popup_ver_cliente__lbl_ruc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/popup_ver_cliente__lbl_ruc"
+            app:layout_constraintTop_toTopOf="@+id/popup_ver_cliente__lbl_ruc" />
+
+        <!-- Celular -->
+        <TextView
+            android:id="@+id/popup_ver_cliente__lbl_celular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Celular:"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_ver_cliente__lbl_ruc" />
+
+        <TextView
+            android:id="@+id/popup_ver_cliente__val_celular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="0999999999"
+            android:textAlignment="textEnd"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/popup_ver_cliente__lbl_celular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/popup_ver_cliente__lbl_celular"
+            app:layout_constraintTop_toTopOf="@+id/popup_ver_cliente__lbl_celular" />
+
+        <!-- Correo -->
+        <TextView
+            android:id="@+id/popup_ver_cliente__lbl_correo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Correo:"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_ver_cliente__lbl_celular" />
+
+        <TextView
+            android:id="@+id/popup_ver_cliente__val_correo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="cliente@email.com"
+            android:textAlignment="textEnd"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/popup_ver_cliente__lbl_correo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/popup_ver_cliente__lbl_correo"
+            app:layout_constraintTop_toTopOf="@+id/popup_ver_cliente__lbl_correo" />
+
+        <!-- Dirección -->
+        <TextView
+            android:id="@+id/popup_ver_cliente__lbl_direccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Dirección:"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_ver_cliente__lbl_correo" />
+
+        <TextView
+            android:id="@+id/popup_ver_cliente__val_direccion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Av. Principal y Secundaria"
+            android:textAlignment="textEnd"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/popup_ver_cliente__lbl_direccion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/popup_ver_cliente__lbl_direccion"
+            app:layout_constraintTop_toTopOf="@+id/popup_ver_cliente__lbl_direccion" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

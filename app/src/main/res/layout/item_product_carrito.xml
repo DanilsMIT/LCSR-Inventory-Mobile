@@ -52,7 +52,9 @@
         android:textAlignment="textEnd"
         android:textColor="#27AE60"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingEnd="12dp"
+        android:paddingStart="0dp" />
 
     <ImageButton
         android:id="@+id/item_cart_btn_delete"
@@ -60,6 +62,7 @@
         android:layout_height="32dp"
         android:layout_weight="0.5"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Eliminar producto del carrito"
         android:src="@android:drawable/ic_menu_delete"
         app:tint="#E74C3C" />
 

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/popup_buscar_cliente__title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="BUSCAR CLIENTE"
+            android:textAlignment="center"
+            android:textColor="#333333"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/popup_buscar_cliente__btn_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#888888" />
+
+        <LinearLayout
+            android:id="@+id/popup_buscar_cliente__layout_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            app:layout_constraintTop_toBottomOf="@+id/popup_buscar_cliente__title">
+
+            <EditText
+                android:id="@+id/popup_buscar_cliente__input_ruc"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="7"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:hint="Cédula o RUC"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textColor="#333333"
+                android:textColorHint="#999999" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/popup_buscar_cliente__btn_search"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="3"
+                android:backgroundTint="#2980B9"
+                android:text="Buscar"
+                android:textColor="@android:color/white"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/popup_buscar_cliente__divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"
+            app:layout_constraintTop_toBottomOf="@+id/popup_buscar_cliente__layout_search" />
+
+        <TextView
+            android:id="@+id/popup_buscar_cliente__tv_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Cliente no encontrado."
+            android:textAlignment="center"
+            android:textColor="#E74C3C"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/popup_buscar_cliente__divider" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/popup_buscar_cliente__card_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="#F9F9F9"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/popup_buscar_cliente__tv_error">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/popup_buscar_cliente__tv_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del Cliente"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/popup_buscar_cliente__tv_cedula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="C.I: 1234567890"
+                    android:textColor="#757575"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/popup_buscar_cliente__btn_select"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#27AE60"
+            android:text="Seleccionar Cliente"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:cornerRadius="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/popup_buscar_cliente__card_result" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

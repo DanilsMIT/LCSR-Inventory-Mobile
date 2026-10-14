@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content__fragment_container, new ventas())
                         .commit();
+            } else if (id == R.id.menu__item_clients) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content__fragment_container, new clientes())
+                        .commit();
             } else if (id == R.id.menu__item_logout) {
                 // Cerramos sesión en Firebase y volvemos a la pantalla de Login
                 com.google.firebase.auth.FirebaseAuth.getInstance().signOut();

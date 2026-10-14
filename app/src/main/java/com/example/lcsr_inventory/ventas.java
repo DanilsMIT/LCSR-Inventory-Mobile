@@ -105,7 +105,21 @@ public class ventas extends Fragment {
         builder.setView(cartBinding.getRoot());
         AlertDialog dialog = builder.create();
 
-        cartBinding.popupCartTitle.setText("DETALLE DE VENTA");
+        // Diferenciar título si es Factura o Venta normal
+        if (venta.getCliente() != null) {
+            cartBinding.popupCartTitle.setText("VENTA CON FACTURA");
+            cartBinding.popupCartBtnVerCliente.setVisibility(View.VISIBLE);
+            
+            // Acción para el nuevo botón: Mostrar datos del cliente
+            cartBinding.popupCartBtnVerCliente.setOnClickListener(v -> {
+                mostrarDatosCliente(venta.getCliente());
+            });
+        } else {
+            cartBinding.popupCartTitle.setText("DETALLE DE VENTA");
+            cartBinding.popupCartBtnVerCliente.setVisibility(View.GONE);
+        }
+
+        cartBinding.popupCartCbFactura.setVisibility(View.GONE); // Ocultar checkbox en el historial
         cartBinding.popupCartDate.setVisibility(View.VISIBLE);
         cartBinding.popupCartDate.setText("Fecha: " + venta.getDate());
         cartBinding.popupCartTxtTotal.setText(String.format(Locale.US, "TOTAL: $ %.2f", venta.getTotal()));
@@ -122,6 +136,11 @@ public class ventas extends Fragment {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
         dialog.show();
+    }
+
+    private void mostrarDatosCliente(Cliente cliente) {
+        PopupVerCliente popupVerCliente = new PopupVerCliente(cliente);
+        popupVerCliente.show(getParentFragmentManager(), "PopupVerCliente");
     }
 
     @Override

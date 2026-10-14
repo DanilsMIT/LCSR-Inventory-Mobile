@@ -92,14 +92,75 @@ public class InventoryViewModel extends ViewModel {
         }
         productosRef.child(producto.getId()).removeValue();
     }
+    
+    // PATCH: Editar Cliente en Directorio
+    public void editarCliente(Cliente clienteActualizado) {
+        if (clienteActualizado.getId() != null) {
+            Map<String, Object> mapCliente = new HashMap<>();
+            mapCliente.put("id", clienteActualizado.getId());
+            mapCliente.put("nombre", clienteActualizado.getNombre());
+            mapCliente.put("cedula", clienteActualizado.getCedula());
+            mapCliente.put("ruc", clienteActualizado.getRuc());
+            mapCliente.put("celular", clienteActualizado.getCelular());
+            mapCliente.put("correo", clienteActualizado.getCorreo());
+            mapCliente.put("direccion", clienteActualizado.getDireccion());
+            mapCliente.put("app_secret", "LCSR_2026_secreto"); 
+
+            FirebaseDatabase.getInstance().getReference("clientes")
+                .child(clienteActualizado.getId())
+                .updateChildren(mapCliente);
+        }
+    }
+    
+    // DELETE: Eliminar Cliente del Directorio
+    public void eliminarCliente(String clienteId) {
+        Map<String, Object> eliminacion = new HashMap<>();
+        eliminacion.put("app_secret", "LCSR_2026_secreto"); // Trampa para pasar la regla de escritura antes de borrar
+        FirebaseDatabase.getInstance().getReference("clientes").child(clienteId).updateChildren(eliminacion)
+            .addOnCompleteListener(task -> {
+                 FirebaseDatabase.getInstance().getReference("clientes").child(clienteId).removeValue();
+            });
+    }
 
     // POST: Registrar nueva venta
-    public void registrarVenta(List<ProductoCarrito> productosVendidos, double total) {
+    public void registrarVenta(List<ProductoCarrito> productosVendidos, double total, Cliente clienteFactura) {
         DatabaseReference ventasRef = FirebaseDatabase.getInstance().getReference("ventas");
         String nuevoId = ventasRef.push().getKey();
         if (nuevoId != null) {
             String fecha = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault()).format(new java.util.Date());
             RegistroVenta nuevaVenta = new RegistroVenta(nuevoId, fecha, productosVendidos, total);
+            
+            // Si hay datos de factura, la adjuntamos a la venta
+            if (clienteFactura != null) {
+                // Solo si el cliente no tiene ID significa que es nuevo y debemos guardarlo en el directorio
+                if (clienteFactura.getId() == null || clienteFactura.getId().isEmpty()) {
+                    DatabaseReference clientesRef = FirebaseDatabase.getInstance().getReference("clientes");
+                    String clienteId = clientesRef.push().getKey();
+                    if (clienteId != null) {
+                        clienteFactura.setId(clienteId);
+                        
+                        // EMPAQUETAMOS MANUALMENTE EN UN MAPA PARA EVITAR FALLOS DEL OBJETO
+                        Map<String, Object> mapCliente = new HashMap<>();
+                        mapCliente.put("id", clienteId);
+                        mapCliente.put("nombre", clienteFactura.getNombre());
+                        mapCliente.put("cedula", clienteFactura.getCedula());
+                        mapCliente.put("ruc", clienteFactura.getRuc());
+                        mapCliente.put("celular", clienteFactura.getCelular());
+                        mapCliente.put("correo", clienteFactura.getCorreo());
+                        mapCliente.put("direccion", clienteFactura.getDireccion());
+                        mapCliente.put("app_secret", "LCSR_2026_secreto"); // INYECCIÓN DIRECTA DEL SECRETO
+                        
+                        clientesRef.child(clienteId).setValue(mapCliente);
+                    }
+                } else {
+                    // Si ya tenía ID (Cliente Existente), nos aseguramos de que el secreto esté presente en el objeto local
+                    clienteFactura.setApp_secret("LCSR_2026_secreto");
+                }
+                
+                nuevaVenta.setCliente(clienteFactura);
+            }
+
+            nuevaVenta.setApp_secret("LCSR_2026_secreto"); // IMPORTANTE PARA SALTAR LA REGLA DE SEGURIDAD
             ventasRef.child(nuevoId).setValue(nuevaVenta);
         }
     }

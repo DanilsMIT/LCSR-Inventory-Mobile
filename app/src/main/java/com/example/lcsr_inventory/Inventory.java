@@ -250,9 +250,9 @@ public class Inventory extends Fragment {
     }
 
     private void mostrarPopupCarrito() {
-        PopupCarrito carritoDialog = new PopupCarrito(carritoActual, totalCarrito, () -> {
-            // Lógica al confirmar la venta: enviar a Firebase
-            viewModel.registrarVenta(new ArrayList<>(carritoActual), totalCarrito);
+        PopupCarrito carritoDialog = new PopupCarrito(carritoActual, totalCarrito, (clienteFactura) -> {
+            // Lógica al confirmar la venta: enviar a Firebase (ahora soporta Cliente para factura)
+            viewModel.registrarVenta(new ArrayList<>(carritoActual), totalCarrito, clienteFactura);
             
             // Vaciar carrito
             carritoActual.clear();

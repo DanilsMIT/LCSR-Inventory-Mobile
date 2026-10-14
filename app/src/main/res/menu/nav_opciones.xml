@@ -10,6 +10,11 @@
             android:id="@+id/menu__item_sales"
             android:icon="@drawable/icons8_ventas_totales_100"
             android:title="Ventas" />
+
+        <item
+            android:id="@+id/menu__item_clients"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Clientes" />
     </group>
     <item
         android:id="@+id/menu__item_logout"

@@ -22,9 +22,10 @@ public class PopupCarrito extends DialogFragment {
     private List<ProductoCarrito> listaProductos;
     private double totalVenta;
     private OnCartActionListener listener;
+    private Cliente clienteSeleccionado = null;
 
     public interface OnCartActionListener {
-        void onConfirmOrder();
+        void onConfirmOrder(Cliente cliente);
     }
 
     public PopupCarrito(List<ProductoCarrito> listaProductos, double totalVenta, OnCartActionListener listener) {
@@ -68,12 +69,69 @@ public class PopupCarrito extends DialogFragment {
         binding.popupCartRvItems.setAdapter(adapter);
 
         binding.popupCartBtnClose.setOnClickListener(v -> dismiss());
+        
+        binding.popupCartCbFactura.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked && clienteSeleccionado == null) {
+                // Abre el nuevo popup que pregunta "¿Existente o Nuevo?"
+                PopupSeleccionCliente selClienteDialog = new PopupSeleccionCliente(new PopupSeleccionCliente.OnSeleccionListener() {
+                    @Override
+                    public void onOpcionSeleccionada(boolean esNuevo) {
+                        if (esNuevo) {
+                            // Abrir formulario para crear cliente nuevo
+                            abrirFormularioNuevoCliente();
+                        } else {
+                            // Abrir buscador de clientes existentes
+                            abrirBuscadorCliente();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelado() {
+                        binding.popupCartCbFactura.setChecked(false);
+                    }
+                });
+                selClienteDialog.show(getParentFragmentManager(), "PopupSelCliente");
+            } else if (!isChecked) {
+                clienteSeleccionado = null;
+            }
+        });
+
         binding.popupCartBtnConfirm.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onConfirmOrder();
+                listener.onConfirmOrder(clienteSeleccionado);
             }
             dismiss();
         });
+    }
+
+    private void abrirFormularioNuevoCliente() {
+        PopupFormCliente formCliente = new PopupFormCliente(new PopupFormCliente.OnClienteGuardadoListener() {
+            @Override
+            public void onGuardado(Cliente cliente) {
+                clienteSeleccionado = cliente;
+            }
+
+            @Override
+            public void onCancelado() {
+                binding.popupCartCbFactura.setChecked(false);
+            }
+        });
+        formCliente.show(getParentFragmentManager(), "PopupCliente");
+    }
+
+    private void abrirBuscadorCliente() {
+        PopupBuscarCliente buscadorCliente = new PopupBuscarCliente(new PopupBuscarCliente.OnClienteGuardadoListener() {
+            @Override
+            public void onGuardado(Cliente cliente) {
+                clienteSeleccionado = cliente;
+            }
+
+            @Override
+            public void onCancelado() {
+                binding.popupCartCbFactura.setChecked(false);
+            }
+        });
+        buscadorCliente.show(getParentFragmentManager(), "PopupBuscarCliente");
     }
 
     @Override

@@ -7,6 +7,7 @@ public class RegistroVenta {
     private String date;
     private List<ProductoCarrito> productos;
     private double total;
+    private Cliente cliente; // NUEVO: Cliente para la factura
     private String app_secret = "LCSR_2026_secreto"; // Secreto
 
     public RegistroVenta() {
@@ -56,4 +57,7 @@ public class RegistroVenta {
 
     public String getApp_secret() { return app_secret; }
     public void setApp_secret(String app_secret) { this.app_secret = app_secret; }
+
+    public Cliente getCliente() { return cliente; }
+    public void setCliente(Cliente cliente) { this.cliente = cliente; }
 }
